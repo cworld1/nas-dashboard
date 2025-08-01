@@ -1,0 +1,44 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - "v*"
+  pull_request:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  docs-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up files
+        run: |
+          echo "Setting up json file..."
+          mv ./.example.services.json ./services.json
+          echo "Removing useless files..."
+          rm -rf ./.github ./.gitignore ./.package.json ./tsconfig.json
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
