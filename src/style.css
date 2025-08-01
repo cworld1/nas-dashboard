@@ -88,13 +88,13 @@ header {
   margin: 0;
   padding: 0 1rem;
 }
-#groupContainer {
+
+/* main */
+.group-container {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
 }
-
-/* main */
 .block-content {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
