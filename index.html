@@ -1,84 +1,67 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light dark" />
-    <title>NAS Dashboard</title>
-    <link type="text/css" rel="stylesheet" href="./src/style.css" />
-    <link rel="icon" href="./src/favicon.svg" type="image/svg+xml" />
-    <link
-      rel="icon"
-      href="./src/favicon.svg"
-      type="image/svg+xml"
-      media="(prefers-color-scheme: dark)"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <div class="title">
-          <h1>Welcome</h1>
-          <div id="time"></div>
-          <script>
-            const timeElement = document.getElementById("time");
-            if (timeElement) {
-              const now = new Date();
-              const weekday = now.toLocaleString("en-US", {
-                weekday: "short",
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>NAS Dashboard</title>
+  <link type="text/css" rel="stylesheet" href="./src/style.css" />
+  <link rel="icon" href="./src/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="./src/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="title">
+        <h1>Welcome</h1>
+        <div id="time"></div>
+        <script>
+          const timeElement = document.getElementById("time");
+          if (timeElement) {
+            const now = new Date();
+            const weekday = now.toLocaleString("en-US", {
+              weekday: "short",
+            });
+            timeElement.textContent =
+              weekday +
+              ", " +
+              now.toLocaleString("en-US", {
+                dateStyle: "medium",
+                timeStyle: "short",
+                hourCycle: "h23",
               });
-              timeElement.textContent =
-                weekday +
-                ", " +
-                now.toLocaleString("en-US", {
-                  dateStyle: "medium",
-                  timeStyle: "short",
-                  hourCycle: "h23",
-                });
-            }
-          </script>
+          }
+        </script>
+      </div>
+
+      <div class="control-panel">
+        <div class="group-toggle mode-toggle">
+          <button class="group-btn" data-mode="wan" onclick="switchMode(this)">
+            WAN
+          </button>
+          <button class="group-btn" data-mode="lan" onclick="switchMode(this)">
+            LAN
+          </button>
         </div>
+        <select id="prefixSelector" onchange="updateLinks()"></select>
+      </div>
+    </header>
 
-        <div class="control-panel">
-          <div class="group-toggle mode-toggle">
-            <button
-              class="group-btn"
-              data-mode="auto"
-              onclick="switchMode(this)"
-            >
-              Auto
-            </button>
-            <button
-              class="group-btn"
-              data-mode="lan"
-              onclick="switchMode(this)"
-            >
-              LAN
-            </button>
-            <button
-              class="group-btn"
-              data-mode="wan"
-              onclick="switchMode(this)"
-            >
-              WAN
-            </button>
-          </div>
-          <select id="prefixSelector" onchange="updateLinks()"></select>
-        </div>
-      </header>
+    <main>
+      <div id="prefixGroupContainer" class="group-container"></div>
+      <div id="otherGroupContainer" class="group-container"></div>
+    </main>
 
-      <main>
-        <div id="prefixGroupContainer" class="group-container"></div>
-        <div id="otherGroupContainer" class="group-container"></div>
-      </main>
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 CWorld. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
 
-      <footer>
-        <div class="footer-content">
-          <p>&copy; 2025 CWorld. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+  <script src="./src/script.js"></script>
+</body>
 
-    <script src="./src/script.js"></script>
-  </body>
 </html>
