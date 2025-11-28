@@ -109,12 +109,15 @@ header {
   border-radius: var(--radius);
   padding: 0.7rem 1rem;
   border: 1px solid var(--border-color);
+  &:not(.clickable) > .link-icon {
+    display: none;
+  }
   &.disabled {
     pointer-events: none;
     opacity: 0.5;
   }
 
-  & > svg {
+  & > svg:first-child {
     width: 34px;
     height: 34px;
   }
@@ -122,6 +125,7 @@ header {
     display: flex;
     flex-direction: column;
     row-gap: 0.1rem;
+    flex-grow: 1;
 
     & > .title {
       font-weight: bold;
@@ -130,6 +134,10 @@ header {
       color: var(--text-note-color);
       font-size: smaller;
     }
+  }
+  & > .link-icon {
+    width: 20px;
+    height: 20px;
   }
 }
 
